@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>I LOVE YOU — Cool Card</title>
+  <style>
+    :root{
+      --bg1:#0f172a;
+      --bg2:#3b0f2f;
+      --accent:#ff6b9a;
+      --accent2:#ffde7d;
+      --glass: rgba(255,255,255,0.06);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial}
+    body{
+      background: radial-gradient(1200px 600px at 10% 20%, rgba(255,107,154,0.08), transparent),
+                  radial-gradient(800px 400px at 90% 80%, rgba(255,222,125,0.05), transparent),
+                  linear-gradient(160deg,var(--bg1),var(--bg2));
+      color: white;
+      display:flex;align-items:center;justify-content:center;padding:20px;
+      -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    }
+
+    .card{
+      width:100%;
+      max-width:920px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:18px;padding:24px;position:relative;overflow:hidden;
+      box-shadow: 0 10px 40px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:center;
+    }
+
+    .message{padding:12px;}
+
+    .title{
+      font-size:clamp(24px,6vw,56px);line-height:1;letter-spacing:1px;
+      font-weight:800;margin:0 0 10px;display:flex;align-items:center;gap:10px;
+      text-shadow:0 6px 30px rgba(255,107,154,0.18), 0 1px 0 rgba(0,0,0,0.4);
+    }
+
+    .neon{
+      color:var(--accent);
+      text-shadow:
+        0 0 6px rgba(255,107,154,0.8),
+        0 0 18px rgba(255,107,154,0.5),
+        0 6px 30px rgba(91,10,35,0.6);
+    }
+
+    .sub{
+      margin:6px 0 20px;color:rgba(255,255,255,0.85);font-size:1rem;max-width:52ch;
+    }
+
+    .typing{display:inline-block;border-right:3px solid rgba(255,255,255,0.12);padding-right:6px;word-break:break-word}
+
+    .controls{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      --btn-h:44px;display:inline-flex;align-items:center;gap:8px;padding:0 14px;height:var(--btn-h);
+      background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border-radius:12px;border:1px solid rgba(255,255,255,0.06);cursor:pointer;color:inherit;font-weight:700;
+      box-shadow: 0 6px 18px rgba(11,9,20,0.45);backdrop-filter: blur(6px);
+      font-size:0.9rem;
+    }
+    .btn:active{transform:translateY(1px)}
+
+    .visual{display:flex;align-items:center;justify-content:center;position:relative;padding:12px;}
+
+    .heart-wrap{width:100%;max-width:340px;aspect-ratio:1;display:grid;place-items:center;transform-style:preserve-3d;}
+
+    .heart{
+      width:65%;aspect-ratio:1;position:relative;transform:rotateZ(-20deg) scale(1);
+      animation:beat 1.1s infinite ease-in-out;
+      filter: drop-shadow(0 18px 30px rgba(255,107,154,0.12));
+    }
+    .heart:before,.heart:after{
+      content:"";position:absolute;left:50%;top:20%;width:55%;height:80%;background:linear-gradient(180deg,var(--accent),#ff2e6d);
+      border-radius:60px 60px 0 0;transform-origin:50% 50%;
+    }
+    .heart:before{transform:translateX(-50%) rotate(-45deg);}
+    .heart:after{transform:translateX(-50%) rotate(45deg);} 
+
+    @keyframes beat{
+      0%,100%{transform:scale(1) rotateZ(-20deg)}
+      40%{transform:scale(1.08) rotateZ(-18deg)}
+      60%{transform:scale(0.96) rotateZ(-22deg)}
+    }
+
+    .floaters{position:absolute;inset:0;pointer-events:none}
+    .floater{position:absolute;width:18px;height:18px;opacity:0;transform:translateY(20px) scale(0.6);}
+
+    .footer{position:absolute;left:12px;right:12px;bottom:10px;font-size:12px;color:rgba(255,255,255,0.6);display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;text-align:center}
+
+    @media (max-width:880px){
+      .card{grid-template-columns:1fr;}
+      .visual{order:-1}
+      .heart-wrap{max-width:260px}
+    }
+
+    @media (max-width:500px){
+      .card{padding:16px;gap:16px}
+      .title{font-size:clamp(20px,8vw,40px)}
+      .sub{font-size:0.9rem}
+      .btn{flex:1;justify-content:center}
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="main-title">
+    <section class="message">
+      <h1 id="main-title" class="title"><span class="neon">I</span> <span style="font-size:0.62em;opacity:0.9">LOVE</span> <span class="neon">YOU</span></h1>
+      <p class="sub">A tiny cool card made with HTML, CSS & JavaScript. Let it say what words sometimes cannot — press the buttons, watch the hearts, or let it type the message for you.</p>
+
+      <div class="controls">
+        <button class="btn" id="typeBtn" title="Type the message">✨ Type it out</button>
+        <button class="btn" id="burstBtn" title="Send hearts">💖 Shower hearts</button>
+        <button class="btn" id="toggleBeat" title="Toggle heartbeat">💓 Toggle beat</button>
+      </div>
+
+      <p style="margin-top:18px;color:rgba(255,255,255,0.9)">Message preview: <span class="typing" id="typed"> </span></p>
+
+    </section>
+
+    <aside class="visual" aria-hidden="false">
+      <div class="heart-wrap" aria-hidden="true">
+        <div class="heart" id="mainHeart" role="img" aria-label="Pulsing heart"></div>
+        <div class="floaters" id="floaters"></div>
+      </div>
+    </aside>
+
+    <div class="footer">
+      <div>Made by kosy ❤️</div>
+      <div style="opacity:0.8;font-style:italic">Tap the buttons — have fun!</div>
+    </div>
+  </main>
+
+  <script>
+    const typedEl = document.getElementById('typed');
+    const typeBtn = document.getElementById('typeBtn');
+    const burstBtn = document.getElementById('burstBtn');
+    const toggleBeat = document.getElementById('toggleBeat');
+    const mainHeart = document.getElementById('mainHeart');
+    const floaters = document.getElementById('floaters');
+
+    const message = 'I love you more than words can say.';
+
+    let typing = false;
+    typeBtn.addEventListener('click', ()=>{
+      if(typing) return; typing=true; typedEl.textContent='';
+      let i=0;
+      const interval = setInterval(()=>{
+        typedEl.textContent += message[i] === ' ' ? ' ' : message[i];
+        i++;
+        if(i>=message.length){ clearInterval(interval); typing=false; }
+      }, 80);
+    });
+
+    function spawnHeart(xPercent){
+      const el = document.createElement('div');
+      el.className='floater';
+      const size = Math.random()*18 + 12;
+      el.style.width = size+'px'; el.style.height = size+'px';
+      el.style.left = (xPercent!==undefined? xPercent : Math.random()*90) + '%';
+      el.style.bottom = '12%';
+      const hue = 330 + Math.random()*20;
+      el.style.background = `linear-gradient(180deg, hsl(${hue} 100% 70%), hsl(${hue-30} 90% 52%))`;
+      el.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
+      el.style.opacity=1;
+      el.style.transform = 'translateY(0) scale(0.9) rotate('+ (Math.random()*60-30) + 'deg)';
+      floaters.appendChild(el);
+
+      const duration = 1800 + Math.random()*900;
+      const translateY = - (120 + Math.random()*160);
+      const translateX = (Math.random()*80-40);
+      const start = performance.now();
+      function frame(t){
+        const p = Math.min(1,(t-start)/duration);
+        el.style.transform = `translate(${translateX*p}px, ${translateY*p}px) scale(${0.9 + p*0.3}) rotate(${(p*40-20)}deg)`;
+        el.style.opacity = String(1 - p);
+        if(p<1) requestAnimationFrame(frame);
+        else el.remove();
+      }
+      requestAnimationFrame(frame);
+    }
+
+    burstBtn.addEventListener('click', ()=>{
+      for(let i=0;i<18;i++){
+        setTimeout(()=> spawnHeart(), i*60 + Math.random()*80);
+      }
+    });
+
+    let beating = true;
+    toggleBeat.addEventListener('click', ()=>{
+      beating = !beating;
+      if(!beating){ mainHeart.style.animationPlayState='paused'; toggleBeat.textContent='💤 Pause beat'; }
+      else { mainHeart.style.animationPlayState='running'; toggleBeat.textContent='💓 Toggle beat'; }
+    });
+
+    document.querySelector('.heart-wrap').addEventListener('click', (e)=>{
+      const rect = e.currentTarget.getBoundingClientRect();
+      const xPct = ( (e.clientX - rect.left) / rect.width ) * 100;
+      for(let i=0;i<6;i++){ setTimeout(()=> spawnHeart(Math.min(96,Math.max(4, xPct + (Math.random()*18-9)))), i*40); }
+      mainHeart.animate([
+        {transform:'scale(1) rotate(-20deg)'},
+        {transform:'scale(1.14) rotate(-20deg)'},
+        {transform:'scale(1) rotate(-20deg)'}
+      ],{duration:420,easing:'cubic-bezier(.2,.8,.3,1)'});
+    });
+
+    setInterval(()=>{ if(Math.random()>0.6) spawnHeart(); }, 1200);
+
+    window.addEventListener('keydown',(e)=>{
+      if(e.key.toLowerCase()==='t') typeBtn.click();
+      if(e.key.toLowerCase()==='b') burstBtn.click();
+      if(e.key.toLowerCase()===' ') { document.querySelector('.heart-wrap').click(); e.preventDefault(); }
+    });
+
+    window.addEventListener('load', ()=>{ setTimeout(()=> spawnHeart(50), 700); });
+
+  </script>
+</body>
+</html>
